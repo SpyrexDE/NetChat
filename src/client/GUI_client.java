@@ -2,6 +2,7 @@ package client;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,15 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 
 public class GUI_client {
     public GUI_client() {
@@ -51,7 +44,10 @@ public class GUI_client {
         preFrame = new JFrame(appName);
         usernameChooser = new JTextField(15);
         JLabel chooseUsernameLabel = new JLabel("Pick a username:");
+
         JButton enterServer = new JButton("Enter Chat Server");
+        enterServer.setPreferredSize(new Dimension(100, 100));
+
         enterServer.addActionListener(new enterServerButtonListener());
         JPanel prePanel = new JPanel(new GridBagLayout());
 
@@ -61,7 +57,6 @@ public class GUI_client {
         GridBagConstraints preLeft = new GridBagConstraints();
         preLeft.anchor = GridBagConstraints.WEST;
         preLeft.insets = new Insets(0, 10, 0, 10);
-        // preRight.weightx = 2.0;
         preRight.fill = GridBagConstraints.HORIZONTAL;
         preRight.gridwidth = GridBagConstraints.REMAINDER;
 

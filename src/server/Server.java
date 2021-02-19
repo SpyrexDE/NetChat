@@ -7,7 +7,7 @@ import java.lang.*;
 
 public class Server {
     private ServerSocket serverSocket;
-    private ArrayList<Socket, PrintWriter, BufferedReader> clientSockets;
+    private ArrayList<Socket> clientSockets;
 
     private boolean running;
 
@@ -20,8 +20,8 @@ public class Server {
     }
 
     public void start() {
-        this.acceptThread = new Thread(new Runnable(this.acceptLoop));
-        this.mainThread = new Thread(new Runnable(this.mainLoop));
+        this.acceptThread = new Thread(() -> {this.acceptLoop();});
+        this.mainThread = new Thread(() -> {this.mainLoop();});
     }
 
     public void stop() {
@@ -32,7 +32,7 @@ public class Server {
     private void acceptLoop() {
         while (this.running) {
             Socket clientSocket = this.serverSocket.accept();
-            clientSockets.add({clientSocket, clientSocket.getInputStream(), clientSocket.getOutputStream());
+            clientSockets.add(clientSocket);
         }
     }
 

@@ -7,7 +7,11 @@ public class App {
     private static Server server;
 
     public static void main(String[] args) throws Exception {
-        gui = new GUI_client();
+        try {
+            gui = new GUI_client();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         server = new Server("0.0.0.0", 1337);
     }
 }
