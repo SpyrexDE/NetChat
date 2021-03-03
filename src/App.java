@@ -1,14 +1,13 @@
-import client.GUI_client;
+import client.CLI_client;
+import picocli.CommandLine;
 import server.Server;
 
 public class App {
-    
-    private static GUI_client gui;
     private static Server server;
 
     public static void main(String[] args) throws Exception {
         try {
-            gui = new GUI_client();
+            CommandLine.run(new CLI_client(), System.err, args);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
