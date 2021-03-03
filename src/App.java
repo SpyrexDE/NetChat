@@ -1,6 +1,5 @@
 import client.CLI_client;
 import server.Server;
-import utils.Colors;
 
 public class App {
     private static Server server;
