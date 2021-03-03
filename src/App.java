@@ -1,16 +1,16 @@
 import client.CLI_client;
-import picocli.CommandLine;
 import server.Server;
+import utils.Colors;
 
 public class App {
     private static Server server;
 
     public static void main(String[] args) throws Exception {
         try {
-            CommandLine.run(new CLI_client(), System.err, args);
+            new CLI_client();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        server = new Server("0.0.0.0", 1337);
+        //server = new Server("0.0.0.0", 1337);
     }
 }

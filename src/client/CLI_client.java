@@ -1,15 +1,29 @@
 package client;
 
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
+import utils.Console;
+import java.util.Scanner;
 
-@Command(name = "Greet", header = "%n@|green Hello world demo|@")
-public class CLI_client implements Runnable {
+import utils.Colors;
 
-  @Option(names = {"-u", "--user"}, required = true, description = "The user name.")
-  String userName;
 
-  public void run() {
-    System.out.println("Hello, " + userName);
-  }
+public class CLI_client {
+    public static String PREFIX = Colors.ANSI_CYAN + "Net" + Colors.ANSI_GREEN + "Chat " + Colors.ANSI_YELLOW + "⇝  " + Colors.ANSI_RESET;
+    public static String MOTD = "MOTD";
+
+
+    public boolean closed = false;
+
+    public CLI_client(){
+        Scanner input = new Scanner(System.in);
+        Console.clear();
+        while(!closed){
+            System.out.print(PREFIX);
+            run(input.nextLine());
+        }
+        input.close();
+    }
+
+    public void run(String input){
+        System.out.println(input);
+    }
 }
