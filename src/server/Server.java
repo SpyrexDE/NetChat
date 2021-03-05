@@ -1,38 +1,43 @@
 package server;
 
 import java.net.*;
-import java.io.*;
 import java.util.*;
-import java.lang.*;
 
 public class Server {
+    private String host;
+    private int port;
+
     private ServerSocket serverSocket;
-    private ArrayList<Socket> clientSockets;
+    private ArrayList<ClientConnection> clientConnections;
 
     private boolean running;
 
-    private Thread acceptThread;
     private Thread mainThread;
 
     
     public Server(String host, int port) {
-        try {
-            this.serverSocket = new ServerSocket(port);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        this.host = host;
+        this.port = port;
+        this.running = false;
+        this.clientConnections = new ArrayList<ClientConnection>();
     }
 
     public void start() {
-        this.acceptThread = new Thread(() -> {this.acceptLoop();});
+        this.running = true;
+        try {
+            this.serverSocket = new ServerSocket(this.port);
+            System.out.println("Listening on " + this.host + ":" + this.port);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         this.mainThread = new Thread(() -> {this.mainLoop();});
-        this.acceptThread.start();
         this.mainThread.start();
+        this.acceptLoop();
     }
 
     public void stop() {
+        this.running = false;
         try {
-            this.acceptThread.join();
             this.mainThread.join();
         } catch(Exception e) {
             e.printStackTrace();
@@ -43,7 +48,8 @@ public class Server {
         while (this.running) {
             try {
                 Socket clientSocket = this.serverSocket.accept();
-                clientSockets.add(clientSocket);
+                clientConnections.add(new ClientConnection(clientSocket));
+                System.out.println("New connection: " + clientSocket.getRemoteSocketAddress());
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -51,8 +57,16 @@ public class Server {
     }
 
     private void mainLoop() {
+        String in;
         while (this.running) {
-            //TODO
+            for (ClientConnection conn : clientConnections) {
+                try {
+                    in = conn.out.readLine();
+                    System.out.println(in);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
