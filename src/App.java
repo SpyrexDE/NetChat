@@ -1,5 +1,6 @@
 import java.util.Locale;
 
+import client.CLI_client;
 import server.Server;
 import utils.Props;
 
@@ -8,9 +9,8 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         try {
-            Props.init(Locale.GERMAN);
-            System.out.println(Props.get("s1"));
-            //new CLI_client();
+            Props.init(Locale.ENGLISH);
+            new CLI_client();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

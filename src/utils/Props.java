@@ -2,7 +2,6 @@ package utils;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
@@ -12,27 +11,35 @@ public class Props {
 
     public static String configPrefix = "resources/properties/output_";
 
-    private static Properties props;
+    private static Properties props = new Properties();;
 
-    public static void init(Locale locale)
+    public static boolean init(Locale locale)
     {
         String resourceName = configPrefix + locale.getLanguage() + ".properties";
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        props = new Properties();
 
         try (InputStream resourceStream = loader.getResourceAsStream(resourceName))
         {
-            props.load(new InputStreamReader(resourceStream, Charset.forName("UTF-8")));
+            InputStreamReader reader = new InputStreamReader(resourceStream, Charset.forName("UTF-8"));
+
+            if(reader != null)
+                props.load(reader);
+        }
+        catch(NullPointerException e)
+        {
+            Console.error("err_lang_not_available", locale.toLanguageTag().toUpperCase());
+            return false;
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+        return true;
     }
 
     public static String get(String key)
     {
-            return props.getProperty(key);
+            return props.getProperty(key) == null ? "null" : props.getProperty(key);
     }
 }
