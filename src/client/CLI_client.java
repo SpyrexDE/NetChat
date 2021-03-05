@@ -30,15 +30,11 @@ public class CLI_client {
     public CLI_client() {
         
         Scanner input = new Scanner(System.in);
-<<<<<<< HEAD
         try{
             new Tray("NetChat", "NetChat was successfully started!", "resources/icon.png"); //Image not working :(
         } catch(Exception e) {
             e.printStackTrace();
         }
-=======
-        new Tray("NetChat", Props.get("tray_started"), "resources/icon.png"); // Image not working :(
->>>>>>> 267616bc8003798b72527aba467a12d58112da50
         Console.clear();
         System.out.print(MOTD);
         while (!closed) {
