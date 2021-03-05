@@ -18,7 +18,11 @@ public class CLI_client {
 
     public CLI_client(){
         Scanner input = new Scanner(System.in);
-        new Tray("NetChat", "NetChat was successfully started!", "resources/icon.png"); //Image not working :(
+        try{
+            new Tray("NetChat", "NetChat was successfully started!", "resources/icon.png"); //Image not working :(
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         Console.clear();
         System.out.print(MOTD);
         while(!closed){

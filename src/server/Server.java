@@ -16,23 +16,37 @@ public class Server {
 
     
     public Server(String host, int port) {
-        this.serverSocket = new ServerSocket(port);
+        try {
+            this.serverSocket = new ServerSocket(port);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {
         this.acceptThread = new Thread(() -> {this.acceptLoop();});
         this.mainThread = new Thread(() -> {this.mainLoop();});
+        this.acceptThread.start();
+        this.mainThread.start();
     }
 
     public void stop() {
-        this.acceptThread.join();
-        this.mainThread.join();
+        try {
+            this.acceptThread.join();
+            this.mainThread.join();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void acceptLoop() {
         while (this.running) {
-            Socket clientSocket = this.serverSocket.accept();
-            clientSockets.add(clientSocket);
+            try {
+                Socket clientSocket = this.serverSocket.accept();
+                clientSockets.add(clientSocket);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
