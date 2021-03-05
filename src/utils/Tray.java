@@ -2,6 +2,12 @@ package utils;
 
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
+import javax.imageio.ImageIO;
 
 public class Tray {
 
@@ -32,16 +38,22 @@ public class Tray {
     private void displayTray(String image_path, String image_tooltip, String tooltip, String title, String message, MessageType type) throws AWTException {
 
         SystemTray tray = SystemTray.getSystemTray();
-
-        Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource(image_path));
-
-        TrayIcon trayIcon = new TrayIcon(image, image_tooltip);
-
-        trayIcon.setImageAutoSize(true);
         
-        trayIcon.setToolTip(tooltip);
-        tray.add(trayIcon);
-
-        trayIcon.displayMessage(title, message, type);
+        try
+        {
+            Image image = ImageIO.read(getClass().getResource(image_path));
+            
+            TrayIcon trayIcon = new TrayIcon(image, image_tooltip);
+            trayIcon.setImageAutoSize(true);
+            
+            trayIcon.setToolTip(tooltip);
+            tray.add(trayIcon);
+    
+            trayIcon.displayMessage(title, message, type);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        };
     }
 }

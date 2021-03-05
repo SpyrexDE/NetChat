@@ -39,7 +39,7 @@ public class CLI_client {
         AnsiConsole.systemInstall();
         Scanner input = new Scanner(System.in);
         try{
-            new Tray("NetChat", "NetChat was successfully started!", "resources/icon.png"); //Image not working :(
+            new Tray("NetChat", "NetChat was successfully started!", "/resources/icon.png"); //Image not working :(
         } catch(Exception e) {
             e.printStackTrace();
         }
