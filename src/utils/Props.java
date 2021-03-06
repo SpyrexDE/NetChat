@@ -14,11 +14,14 @@ import java.util.Properties;
 
 public class Props {
 
+    public static String FALLBACK_LANG = "en";
+
     public static String configPrefix = "resources/properties/output_";
     public static String confPath = System.getProperty("java.io.tmpdir") + "/NetChat/config.properties";
 
     private static Properties defaultConfig = new Properties();
     private static Properties config = new Properties();
+    private static Properties fallbackProps = new Properties();
     private static Properties props = new Properties();
 
     public static boolean init()
@@ -70,8 +73,15 @@ public class Props {
         {
             InputStreamReader reader = new InputStreamReader(resourceStream, Charset.forName("UTF-8"));
 
-            //if(reader.read() != -1)
+            if(langTag.equals(FALLBACK_LANG))
                 props.load(reader);
+            else
+            {
+                String resourceName2 = configPrefix + FALLBACK_LANG + ".properties";
+                InputStream resourceStream2 = loader.getResourceAsStream(resourceName2);
+                InputStreamReader reader2 = new InputStreamReader(resourceStream2, Charset.forName("UTF-8"));
+                fallbackProps.load(reader2);
+            }
                 
         }
         catch(NullPointerException e)
@@ -89,7 +99,11 @@ public class Props {
 
     public static String get(String key)
     {
-            return props.getProperty(key);
+        String result = props.getProperty(key);
+        if(result == null)
+            result = fallbackProps.getProperty(key);
+        
+        return result != null ? result : "[MESSAGE-NOT-AVAILABLE: " + key + "]";
     }
 
     public static void setConf(String key, String value) 

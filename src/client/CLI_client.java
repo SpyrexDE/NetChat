@@ -49,7 +49,7 @@ public class CLI_client {
             e.printStackTrace();
         }
         Console.clear();
-        Console.print(MOTD); Console.println(Props.getConfVars().toString());
+        Console.print(MOTD);
         while (!closed) {
             Console.print("\n" + PREFIX);
 
