@@ -14,7 +14,7 @@ public class App {
             server = new Server("0.0.0.0", 1337);
             server.start();
         } else {
-            Props.init(Locale.ENGLISH);
+            Props.init();
             client = new CLI_client();
         }
     }

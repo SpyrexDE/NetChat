@@ -34,14 +34,16 @@ public class Lang extends Command
     @Override
     void run(String[] args)
     {
-        if (Props.init(Locale.forLanguageTag(args[1])))
+        if(Props.setLang(args[1]))
+        {
             Console.success("suc_cmd_lang", args[1].toUpperCase());
+        }
     }
 
     boolean isValidLocale(String value) {
         Locale[] locales = Locale.getAvailableLocales();
         for (Locale locale : locales) {
-          if (value.equals(locale.toString())) {
+          if (value.toLowerCase().equals(locale.toString())) {
             return true;
           }
         }
