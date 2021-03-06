@@ -25,6 +25,11 @@ public class CLI_client {
             put(Lang.class, new String[] { "language", "lang", "setlang" });
             put(Clear.class, new String[] { "clear", "c" });
             put(Help.class, new String[] { "help", "h" });
+            put(Exit.class, new String[] { "exit", "ext", "e" });
+            put(EditConf.class, new String[] { "editconf", "ec" });
+            put(ReloadConf.class, new String[] { "reloadconf", "rc", "rl" });
+            put(SetVar.class, new String[] { "setvar", "sv", "set" });
+            put(RemoveVar.class, new String[] { "removevar", "remvar", "rv" });
         }
     };
 
@@ -44,7 +49,7 @@ public class CLI_client {
             e.printStackTrace();
         }
         Console.clear();
-        Console.print(MOTD);
+        Console.print(MOTD); Console.println(Props.getConfVars().toString());
         while (!closed) {
             Console.print("\n" + PREFIX);
 
@@ -62,10 +67,10 @@ public class CLI_client {
 
     public void run(String input)
     {
-        if (input.startsWith("/"))
+        if (input.startsWith(Props.getConf("command_sign")))
         {
             String[] args = input.split(" ");
-            String cmd = args[0].replace("/", "");
+            String cmd = args[0].replace(Props.getConf("command_sign"), "");
 
             for (Class<? extends Command> c : commands.keySet())
             {
@@ -88,6 +93,13 @@ public class CLI_client {
             Console.error("err_cmd_not_found");
         }
         else if(!input.isEmpty())
+        {
+            for(String s: Props.getConfVars().keySet())
+            {
+                if(input.contains(Props.getConf("variable_sign") + s))
+                    input = input.replace(Props.getConf("variable_sign") + s, Props.getConfVars().get(s));
+            }
             Console.println("👦 " + Props.get("you_label") + ": " + input);
+        }
     }
 }

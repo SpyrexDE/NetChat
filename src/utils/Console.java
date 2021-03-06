@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Scanner;
+
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
@@ -78,10 +80,20 @@ public class Console {
 
     public static void printmsg(String msg)
     {
-        println(Props.get(msg));
+        print(Props.get(msg));
     }
 
     public static void printmsg(String msg, String ... args)
+    {
+        print(replaceArgs(Props.get(msg), args));
+    }
+
+    public static void printmsgln(String msg)
+    {
+        println(Props.get(msg));
+    }
+
+    public static void printmsgln(String msg, String ... args)
     {
         println(replaceArgs(Props.get(msg), args));
     }
@@ -90,8 +102,23 @@ public class Console {
     public static String replaceArgs(String msg, String[] args) {
         for(int i = 0; i < args.length; i++)
         {
-            msg = msg.toLowerCase().replaceFirst("%arg", args[i]);
+            msg = msg.replaceFirst("(?i)%arg" + String.valueOf(i), args[i]);
         }
         return msg;
+    }
+
+    public static String prompt(String message)
+    {
+        printmsg(message);
+        Scanner input = new Scanner(System.in);
+        String nl = "";
+        while(nl.isEmpty()) 
+        {
+            nl = input.nextLine();
+            Console.print(String.format("\033[%dA", 1));
+            Console.print(String.format("\033[%dC", Props.get(message).length()));
+        }
+        Console.println("");
+        return nl;
     }
 }

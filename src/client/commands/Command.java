@@ -1,5 +1,7 @@
 package client.commands;
 
+import client.CLI_client;
+
 public class Command
 {
     Command(String[] args)

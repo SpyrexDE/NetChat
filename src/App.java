@@ -1,5 +1,3 @@
-import java.util.Locale;
-
 import client.CLI_client;
 import server.Server;
 import utils.Props;

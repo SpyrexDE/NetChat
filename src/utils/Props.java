@@ -9,13 +9,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class Props {
 
     public static String configPrefix = "resources/properties/output_";
+    public static String confPath = System.getProperty("java.io.tmpdir") + "/NetChat/config.properties";
 
-
+    private static Properties defaultConfig = new Properties();
     private static Properties config = new Properties();
     private static Properties props = new Properties();
 
@@ -27,17 +29,18 @@ public class Props {
 
         try (InputStream resourceStream = loader.getResourceAsStream(resourceName))
         {
-            File f = new File(System.getProperty("java.io.tmpdir") + "/NetChat/config.properties");
+            File f = new File(confPath);
 
             InputStreamReader reader;
+            InputStreamReader reader2;
 
-            if(f.exists())
-                reader = new InputStreamReader(new FileInputStream(f));
-            else
-                reader = new InputStreamReader(resourceStream, Charset.forName("UTF-8"));
-
+            reader = new InputStreamReader(new FileInputStream(f));
+            reader2 = new InputStreamReader(resourceStream, Charset.forName("UTF-8"));
+            
             if(reader != null)
                 config.load(reader);
+            if(reader2 != null)
+                defaultConfig.load(reader2);
         }
         catch(NullPointerException e)
         {
@@ -86,15 +89,14 @@ public class Props {
 
     public static String get(String key)
     {
-            return props.getProperty(key);// == null ? "null" : props.getProperty(key);
+            return props.getProperty(key);
     }
 
     public static void setConf(String key, String value) 
     {
         config.setProperty(key, value);
         try {
-            String fName = System.getProperty("java.io.tmpdir") + "/NetChat/config.properties";
-            File file = new File(fName);
+            File file = new File(confPath);
             file.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(file);
 
@@ -110,6 +112,55 @@ public class Props {
 
     public static String getConf(String key) 
     {
-        return config.getProperty(key);
+        return config.getProperty(key) != null ? config.getProperty(key) : defaultConfig.getProperty(key);
     }
+
+    public static void setConfVar(String var_name, String var_value) 
+    {
+        String s = config.getProperty("vars") != null ? config.getProperty("vars") : new HashMap<String, String>().toString();
+        HashMap<String, String> vars = strToHashMap(s);
+        vars.put(var_name, var_value);
+
+        setConf("vars", vars.toString().replaceAll(" ", ""));
+    }
+
+    public static boolean removeConfVar(String var_name) 
+    {
+        String s = config.getProperty("vars");
+        HashMap<String, String> vars = strToHashMap(s);
+        String result = vars.remove(var_name);
+
+        setConf("vars", vars.toString());
+
+        return result != null;
+    }
+
+    public static HashMap<String, String> getConfVars() 
+    {
+        String s = config.getProperty("vars");
+        HashMap<String, String> vars = strToHashMap(s);
+
+        for(String key : vars.keySet())
+        {
+            vars.put(key, vars.get(key).replace("%_", " "));
+        }
+
+        return vars;
+    }
+
+    public static HashMap<String, String> strToHashMap(String s)
+    {
+        HashMap<String, String> map = new HashMap<String, String>();
+        String[] pairs = s.replace("{", "").replace("}", "").split(",");
+        for (int i=0;i<pairs.length;i++) {
+            String pair = pairs[i];
+            String[] keyValue = pair.split("\\=");
+            if(keyValue.length == 2)
+                map.put(keyValue[0], keyValue[1]);
+            else
+            map.put(keyValue[0], "null");
+        }
+        return map;
+    }
+
 }
