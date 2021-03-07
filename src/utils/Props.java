@@ -50,6 +50,12 @@ public class Props {
             Console.print("Error while loading save data");
             return false;
         }
+        catch(FileNotFoundException e)
+        {
+            createConf();
+            init();
+            return false;
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -104,6 +110,18 @@ public class Props {
             result = fallbackProps.getProperty(key);
         
         return result != null ? result : "[MESSAGE-NOT-AVAILABLE: " + key + "]";
+    }
+
+    public static void createConf()
+    {
+        try {
+            File file = new File(confPath);
+            file.getParentFile().mkdirs();
+            config.store(new FileOutputStream(file), null);
+            FileWriter writer = new FileWriter(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setConf(String key, String value) 
