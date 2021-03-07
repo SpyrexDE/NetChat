@@ -7,6 +7,14 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.StdCallLibrary;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.awt.AWTException;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
+import java.awt.Toolkit;
+
+
 public class Console {
 
 
@@ -141,5 +149,44 @@ public class Console {
         }
         Console.println("");
         return nl;
+    }
+
+    public static String prompt(String message, String defaultInput)
+    {
+        printmsg(message);
+        Scanner input = new Scanner(System.in);
+        String nl = "";
+        while(nl.isEmpty()) 
+        {
+            nl = input.nextLine();
+            Console.print(String.format("\033[%dA", 1));
+            Console.print(String.format("\033[%dC", Props.get(message).length() -1));
+            type(defaultInput);
+        }
+        Console.println("");
+        return nl;
+    }
+
+    public static String promptMenu(String[] options)
+    {       
+        return "";
+    }
+
+    public static void type(String text)
+    {
+        try {
+            StringSelection stringSelection = new StringSelection(text);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, stringSelection);
+
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

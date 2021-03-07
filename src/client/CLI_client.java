@@ -62,7 +62,6 @@ public class CLI_client {
             Console.print("\033[2K"); // Remove margin line
             Console.print(String.format("\033[%dA", 1)); // Move up
             Console.print("\033[2K"); // Erase typed line content
-
             run(i);
         }
         input.close();
