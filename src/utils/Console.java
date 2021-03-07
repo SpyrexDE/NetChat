@@ -137,7 +137,7 @@ public class Console {
         {
             nl = input.nextLine();
             Console.print(String.format("\033[%dA", 1));
-            Console.print(String.format("\033[%dC", Props.get(message).length()));
+            Console.print(String.format("\033[%dC", Props.get(message).length() -1));
         }
         Console.println("");
         return nl;

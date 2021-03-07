@@ -1,6 +1,5 @@
 package client.commands;
 
-import client.interfaces.Prompt;
 import utils.Console;
 import utils.Props;
 

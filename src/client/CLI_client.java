@@ -30,6 +30,9 @@ public class CLI_client {
             put(ReloadConf.class, new String[] { "reloadconf", "rc", "rl" });
             put(SetVar.class, new String[] { "setvar", "sv", "set" });
             put(RemoveVar.class, new String[] { "removevar", "remvar", "rv" });
+            put(ListVars.class, new String[] { "listvars", "lsv", "lv" });
+            put(SetName.class, new String[] { "setname", "nickname", "nick", "sn" });
+            put(SetAvatar.class, new String[] { "setavatar", "avatar", "sa" });
         }
     };
 
@@ -99,7 +102,7 @@ public class CLI_client {
                 if(input.contains(Props.getConf("variable_sign") + s))
                     input = input.replace(Props.getConf("variable_sign") + s, Props.getConfVars().get(s));
             }
-            Console.println("👦 " + Props.get("you_label") + ": " + input);
+            Console.println(Props.getConf("avatar") + " " + Props.get("you_label") + ": " + input);
         }
     }
 }

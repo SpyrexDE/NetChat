@@ -79,9 +79,9 @@ public class Props {
         {
             InputStreamReader reader = new InputStreamReader(resourceStream, Charset.forName("UTF-8"));
 
-            if(langTag.equals(FALLBACK_LANG))
-                props.load(reader);
-            else
+            props.load(reader);
+            
+            if(!langTag.equals(FALLBACK_LANG))
             {
                 String resourceName2 = configPrefix + FALLBACK_LANG + ".properties";
                 InputStream resourceStream2 = loader.getResourceAsStream(resourceName2);
