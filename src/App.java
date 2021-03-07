@@ -11,9 +11,11 @@ public class App {
             System.out.println("Launching Server");
             server = new Server("0.0.0.0", 1337);
             server.start();
-        } else {
+        } else if (args.length > 0 && args[0].equals("client")){
             Props.init();
             client = new CLI_client();
+        } else {
+            Runtime.getRuntime().exec("cmd.exe /c start cmd /k \" java -jar --enable-preview NetChat.jar client \"");
         }
     }
 }
