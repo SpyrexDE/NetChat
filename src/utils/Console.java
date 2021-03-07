@@ -28,7 +28,9 @@ public class Console {
         }
     }
 
-    public static void println(String message) {
+    public static void println(String message)
+    {
+        message = processColorCodes(message);
         boolean successful = false;
         if (INSTANCE != null) {
             Pointer handle = INSTANCE.GetStdHandle(-11);
@@ -45,7 +47,31 @@ public class Console {
         }
     }
 
+    public static void print(String message)
+    {
+        message = processColorCodes(message);
+        boolean successful = false;
+        if (INSTANCE != null) {
+            Pointer handle = INSTANCE.GetStdHandle(-11);
+            char[] buffer = message.toCharArray();
+            IntByReference lpNumberOfCharsWritten = new IntByReference();
+            successful = INSTANCE.WriteConsoleW(handle, buffer, buffer.length,
+                    lpNumberOfCharsWritten, null);
+        }
+        if (!successful) {
+            print(message);
+        }
+    }
 
+
+    public static String processColorCodes(String string)
+    {
+        for(String colorcode : Colors.COLORCODES.keySet())
+        {
+            string = string.replace(colorcode, Colors.COLORCODES.get(colorcode));
+        }
+        return string;
+    }
 
 
     public static void clear()
@@ -55,27 +81,22 @@ public class Console {
 
     public static void error(String error)
     {
-        println("⚠️  " + Props.get("error_label") + ": " + Props.get(error));
+        println("\n⚠️  " + Props.get("error_label") + ": " + Props.get(error));
     }
 
     public static void error(String msg, String ... args)
     {
-        println("⚠️  " + Props.get("error_label") + ": " + replaceArgs(Props.get(msg), args));
+        println("\n⚠️  " + Props.get("error_label") + ": " + replaceArgs(Props.get(msg), args));
     }
 
     public static void success(String msg)
     {
-        println("✔  " + Props.get("success_label") + ": " + Props.get(msg));
+        println("\n✔  " + Props.get("success_label") + ": " + Props.get(msg));
     }
 
     public static void success(String msg, String ... args)
     {
-        println("✔  " + Props.get("success_label") + ": " + replaceArgs(Props.get(msg), args));
-    }
-
-    public static void print(String message)
-    {
-        System.out.print(message);
+        println("\n✔  " + Props.get("success_label") + ": " + replaceArgs(Props.get(msg), args));
     }
 
     public static void printmsg(String msg)

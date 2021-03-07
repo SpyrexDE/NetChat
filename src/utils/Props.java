@@ -183,6 +183,10 @@ public class Props {
     public static HashMap<String, String> strToHashMap(String s)
     {
         HashMap<String, String> map = new HashMap<String, String>();
+
+        if(s == null)
+            return map;
+        
         String[] pairs = s.replace("{", "").replace("}", "").split(",");
         for (int i=0;i<pairs.length;i++) {
             String pair = pairs[i];
