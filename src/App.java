@@ -15,7 +15,11 @@ public class App {
             Props.init();
             client = new CLI_client();
         } else {
-            Runtime.getRuntime().exec("cmd.exe /c start cmd /k \" java -jar  NetChat.jar client \"");
+            Process process = Runtime.getRuntime().exec("cmd.exe /c start cmd /c \" wt new-tab -p \"Command Prompt\" -d \"%cd%\" cmd /k java -jar --enable-preview NetChat.jar client\"");
+            if(process.waitFor() != 0)
+            {
+                Runtime.getRuntime().exec("cmd.exe /c start cmd /k \" java -jar  NetChat.jar client \"");
+            }
         }
     }
 }
