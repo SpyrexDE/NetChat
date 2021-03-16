@@ -12,7 +12,7 @@
             "args": [
                 "client"
             ],
-    		"vmArgs": "--enable-preview"
+            "vmargs": [ "--enable-preview" ]
         },
         {
             "type": "java",
@@ -22,7 +22,14 @@
             "args": [
                 "server"
             ],
-    		"vmArgs": "--enable-preview"
+            "vmargs": [ "--enable-preview" ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Like Double Click",
+            "request": "launch",
+            "mainClass": "App",
+            "vmargs": [ "--enable-preview" ]
         }
     ]
 }
