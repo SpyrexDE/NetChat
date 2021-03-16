@@ -6,23 +6,37 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "NetChat_1a411efd"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "NetChat"
+        },
+        {
+            "type": "java",
             "name": "Launch Client",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "NetChat_f165ec54",
+            "projectName": "NetChat",
             "args": [
                 "client"
-            ],
+            ]
         },
         {
             "type": "java",
             "name": "Launch Server",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "NetChat_f165ec54",
+            "projectName": "NetChat",
             "args": [
                 "server"
-            ],
+            ]
         }
     ]
 }
