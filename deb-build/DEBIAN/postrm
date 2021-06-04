@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm /usr/local/bin/netchat
+
+exit 0

@@ -1,0 +1,8 @@
+Package: netchat
+Version: 0.1.0
+Section: development
+Priority: optional
+Architecture: all
+Depends: java-common
+Maintainer: antricks.dev@posteo.de, 
+Description: NetChat - open source, experimental, E2E encypted messenger framework

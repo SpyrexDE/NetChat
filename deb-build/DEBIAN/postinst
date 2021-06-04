@@ -1,0 +1,6 @@
+#!/bin/sh
+
+chmod +x /opt/NetChat/NetChat.jar
+ln -s /opt/NetChat/NetChat.jar /usr/local/bin/netchat
+
+exit 0
