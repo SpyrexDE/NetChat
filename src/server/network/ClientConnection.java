@@ -5,8 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import network.Connection;
+import server.data.Session;
 
 public class ClientConnection extends Connection {
+    public Session session; 
+    
     public ClientConnection(Socket sock) {
         super(sock);
     }

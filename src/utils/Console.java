@@ -149,6 +149,7 @@ public class Console {
             Console.print(String.format("\033[%dC", Props.get(message).length() -1));
         }
         Console.println("");
+        input.close();
         return nl;
     }
 
@@ -165,6 +166,7 @@ public class Console {
             type(defaultInput);
         }
         Console.println("");
+        input.close();
         return nl;
     }
 

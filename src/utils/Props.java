@@ -119,6 +119,8 @@ public class Props {
             file.getParentFile().mkdirs();
             config.store(new FileOutputStream(file), null);
             FileWriter writer = new FileWriter(file);
+            // do stuff
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,6 +135,8 @@ public class Props {
             FileWriter writer = new FileWriter(file);
 
             config.store(new FileOutputStream(file), null);
+
+            writer.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -3,9 +3,6 @@ package utils;
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 
 import javax.imageio.ImageIO;
 

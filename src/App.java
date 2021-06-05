@@ -21,6 +21,7 @@ public class App {
         } else if (args.length > 0 && args[0].equals("client")){
             Props.init();
             client = new CLI_client();
+            client.start();
         } else if (args.length == 3 && args[0].equals("ping")) {
             KeyPair keyPair = Crypto.generateKeyPair();
             PublicKey pubKey = keyPair.getPublic();
@@ -30,8 +31,13 @@ public class App {
             //key exchange
             conn.keyExchange(Base64.getEncoder().encodeToString(pubKey.getEncoded()));
 
-            //action    
+            //action
             conn.sendEncLine("PING");
+
+            //evaluation
+            String pong = conn.readEncLine(privKey);
+            System.out.println("--- + ---\n" + pong + "\n --- + ---");
+
         } else {
             //TODO add OS check here
             

@@ -32,13 +32,16 @@ public class Server {
         this.port = port;
         this.running = false;
 
-        //TODO save key pair
+        //TODO check for saved key pair
+        //TODO import saved key pair
         
         KeyPair keyPair = Crypto.generateKeyPair();
         this.pubKey  = keyPair.getPublic();
         this.privKey = keyPair.getPrivate();
         this.pubKeyB64 = Base64.getEncoder().encodeToString(this.pubKey.getEncoded());
         this.privKeyB64 = Base64.getEncoder().encodeToString(this.privKey.getEncoded());
+        
+        //TODO save key pair
     }
 
     public void start() throws IOException {
