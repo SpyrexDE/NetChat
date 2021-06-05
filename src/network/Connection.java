@@ -55,8 +55,7 @@ public class Connection {
     public void sendEncLine(String s) {
         try {
             System.out.println("--- message ---\n" + s + "\n--- ("+ s.length() +") ---");
-            byte[] cipherBytes = Crypto.encrypt(s, this.remotePubKey).getBytes();
-            String cipherText = Base64.getEncoder().encodeToString(cipherBytes);
+            String cipherText = Crypto.encrypt(s, this.remotePubKey);
             this.sendRawLine(cipherText);
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,8 +63,8 @@ public class Connection {
     }
 
     public String readEncLine(PrivateKey privKey) throws Exception {
-        byte[] cipherBytes = Base64.getDecoder().decode(readRawLine());
-        String decryptedText = Crypto.decrypt(cipherBytes, privKey);
+        String cipherText = this.readRawLine();
+        String decryptedText = Crypto.decrypt(cipherText, privKey);
         return decryptedText;
     }
 
