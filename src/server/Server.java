@@ -25,8 +25,8 @@ public class Server {
 
     private PrivateKey privKey;
     private PublicKey pubKey;
-    private String pubKeyStr;
-    private String privKeyStr;
+    private String pubKeyB64;
+    private String privKeyB64;
 
     public Server(String host, int port) throws NoSuchAlgorithmException {
         this.host = host;
@@ -38,8 +38,8 @@ public class Server {
         KeyPair keyPair = Crypto.generateKeyPair();
         this.pubKey  = keyPair.getPublic();
         this.privKey = keyPair.getPrivate();
-        this.pubKeyStr = Base64.getEncoder().encodeToString(this.pubKey.getEncoded());
-        this.privKeyStr = Base64.getEncoder().encodeToString(this.privKey.getEncoded());
+        this.pubKeyB64 = Base64.getEncoder().encodeToString(this.pubKey.getEncoded());
+        this.privKeyB64 = Base64.getEncoder().encodeToString(this.privKey.getEncoded());
     }
 
     public void start() throws IOException {
@@ -68,11 +68,7 @@ public class Server {
                 ClientConnection conn = new ClientConnection(sock);
                 
                 // public key exchange
-                //! NOT SAFE AGAINST INTERCEPTING MITM, ONLY SAFE AGAINST EAVESDROPPING
-
-                conn.sendRawLine(this.pubKeyStr);
-                String clientPubKey = conn.readRawLine();
-                conn.setRemotePubKey(clientPubKey);
+                conn.keyExchange(pubKeyB64);
 
                 // get action
                 String action = conn.readEncLine(this.privKey);

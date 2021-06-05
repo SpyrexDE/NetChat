@@ -54,6 +54,7 @@ public class Connection {
 
     public void sendEncLine(String s) {
         try {
+            System.out.println("--- message ---\n" + s + "\n--- ("+ s.length() +") ---");
             byte[] cipherBytes = Crypto.encrypt(s, this.remotePubKey).getBytes();
             String cipherText = Base64.getEncoder().encodeToString(cipherBytes);
             this.sendRawLine(cipherText);
