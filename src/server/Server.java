@@ -1,7 +1,5 @@
 package server;
 
-
-
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,7 +14,6 @@ public class Server {
     private boolean running;
     private Thread mainThread;
 
-    
     public Server(String host, int port) {
         this.host = host;
         this.port = port;
