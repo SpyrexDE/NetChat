@@ -17,7 +17,7 @@ public class Props {
     public static String FALLBACK_LANG = "en";
 
     public static String configPrefix = "resources/properties/output_";
-    public static String confPath = System.getProperty("java.io.tmpdir") + "/NetChat/config.properties";
+    public static String confPath;
 
     private static Properties defaultConfig = new Properties();
     private static Properties config = new Properties();
@@ -26,6 +26,14 @@ public class Props {
 
     public static boolean init()
     {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            confPath = System.getProperty("user.home") + "\\%netchat%\\config.properties";
+            System.out.println("confPath = " + confPath);
+        } else {
+            confPath = System.getProperty("user.home") + "/.netchat/config.properties";
+            System.out.println("confPath = " + confPath);
+        }
+
         String resourceName = "resources/properties/defaultConfig.properties";
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

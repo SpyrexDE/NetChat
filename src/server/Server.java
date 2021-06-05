@@ -45,9 +45,10 @@ public class Server {
     }
 
     public void start() throws IOException {
+        
         this.running = true;
         this.serverSocket = new ServerSocket(this.port);
-        System.out.println("Listening on netchat://" + this.host + ":" + this.port);
+        System.out.println("Listening on " + this.host + ":" + this.port);
         this.acceptThread = new Thread(() -> {this.acceptLoop();});
         this.acceptThread.start();
         this.mainLoop();
