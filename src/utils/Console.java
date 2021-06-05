@@ -31,7 +31,7 @@ public class Console {
     static {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.startsWith("win")) {
-            INSTANCE = (Kernel32) Native.loadLibrary("kernel32", Kernel32.class);
+            INSTANCE = (Kernel32) Native.load("kernel32", Kernel32.class, com.sun.jna.win32.W32APIOptions.UNICODE_OPTIONS);
         }
     }
 
