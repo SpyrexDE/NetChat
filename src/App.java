@@ -1,5 +1,12 @@
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.Base64;
+
 import client.CLI_client;
+import network.Connection;
 import server.Server;
+import utils.Crypto;
 import utils.Props;
 
 public class App {
@@ -14,6 +21,19 @@ public class App {
         } else if (args.length > 0 && args[0].equals("client")){
             Props.init();
             client = new CLI_client();
+        } else if (args.length == 3 && args[0].equals("ping")) {
+            KeyPair keyPair = Crypto.generateKeyPair();
+            PublicKey pubKey = keyPair.getPublic();
+            PrivateKey privKey = keyPair.getPrivate();
+            Connection conn = new Connection(args[1], Integer.parseInt(args[2]));
+            
+            //key exchange
+            String serverPubKey = conn.readRawLine();
+            conn.setRemotePubKey(serverPubKey);
+            conn.sendRawLine(Base64.getEncoder().encodeToString(pubKey.getEncoded()));
+
+            //action    
+            conn.sendEncLine("PING");
         } else {
             //TODO add OS check here
             
