@@ -1,10 +1,5 @@
 # NetChat
-
----
-
 *End to end encrypted, experimental messenger application for the CLI*
-
-
 
 ## Usage
 
