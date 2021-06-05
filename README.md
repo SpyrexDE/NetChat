@@ -1,14 +1,17 @@
-## Getting Started
+# NetChat
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+---
 
-## Folder Structure
+*End to end encrypted, experimental messenger application for the CLI*
 
-The workspace contains two folders by default, where:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-## Dependency Management
+## Usage
 
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+| to run ... | command                                            | compatibility                         |
+| ---------- | -------------------------------------------------- | ------------------------------------- |
+| server     | `java -jar NetChat.jar server`                     | cross-platform                        |
+| cli client | `java -jar NetChat.jar client`                     | cross-platform                        |
+| cmd client | double-click NetChat.jar / `java -jar NetChat.jar` | windows only (cross-platform planned) |
+
+
