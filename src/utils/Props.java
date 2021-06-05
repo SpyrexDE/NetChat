@@ -27,11 +27,9 @@ public class Props {
     public static boolean init()
     {
         if (System.getProperty("os.name").startsWith("Windows")) {
-            confPath = System.getProperty("user.home") + "\\%netchat%\\config.properties";
-            System.out.println("confPath = " + confPath);
+            confPath = System.getProperty("user.home") + "\\AppData\\Local\\NetChat\\config.properties";
         } else {
             confPath = System.getProperty("user.home") + "/.netchat/config.properties";
-            System.out.println("confPath = " + confPath);
         }
 
         String resourceName = "resources/properties/defaultConfig.properties";
