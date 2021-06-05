@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 import org.fusesource.jansi.AnsiConsole;
 
@@ -38,7 +39,8 @@ public class CLI_client {
 
     public boolean closed = false;
 
-    public CLI_client() {
+    public CLI_client()
+    {
         try {
             System.setOut(new PrintStream(System.out, true, "UTF-8"));
         } catch (UnsupportedEncodingException e1) {
@@ -46,23 +48,35 @@ public class CLI_client {
         }
         AnsiConsole.systemInstall();
         Scanner input = new Scanner(System.in);
+        
         try{
             new Tray("NetChat", "NetChat was successfully started!", "/resources/icon.png"); //Image not working :(
         } catch(Exception e) {
             e.printStackTrace();
         }
+        
         Console.clear();
+        
         Console.print(MOTD);
+        
         while (!closed) {
             Console.print("\n" + PREFIX);
+            String i = "";
 
-            String i = input.nextLine();
-
-            Console.println(String.format("\033[%dA", 2)); // Move up
-            Console.print("\033[2K"); // Remove margin line
-            Console.print(String.format("\033[%dA", 1)); // Move up
-            Console.print("\033[2K"); // Erase typed line content
-            run(i);
+            try {
+                i = input.nextLine();
+            } catch (NoSuchElementException e) {
+                closed = true;
+                break;
+            }
+            
+            if (i != "") {
+                Console.println(String.format("\033[%dA", 2)); // Move up
+                Console.print("\033[2K"); // Remove margin line
+                Console.print(String.format("\033[%dA", 1)); // Move up
+                Console.print("\033[2K"); // Erase typed line content
+                run(i);
+            }
         }
         input.close();
     }

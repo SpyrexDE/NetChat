@@ -31,8 +31,7 @@ public class Console {
     static {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.startsWith("win")) {
-            INSTANCE = (Kernel32) Native
-                    .loadLibrary("kernel32", Kernel32.class);
+            INSTANCE = (Kernel32) Native.loadLibrary("kernel32", Kernel32.class);
         }
     }
 
@@ -40,6 +39,7 @@ public class Console {
     {
         message = processColorCodes(message);
         boolean successful = false;
+        
         if (INSTANCE != null) {
             Pointer handle = INSTANCE.GetStdHandle(-11);
             char[] buffer = message.toCharArray();
@@ -50,8 +50,9 @@ public class Console {
                 System.out.println();
             }
         }
+        
         if (!successful) {
-            println(message);
+            System.out.println(message);
         }
     }
 
@@ -67,7 +68,7 @@ public class Console {
                     lpNumberOfCharsWritten, null);
         }
         if (!successful) {
-            print(message);
+            System.out.print(message);
         }
     }
 
