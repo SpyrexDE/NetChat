@@ -5,6 +5,7 @@ import utils.Props;
 
 public class ReloadConf extends Command
 {
+    public static final String[] ALIASES = { "reloadconf", "rc", "rl" };
 
     public ReloadConf(String[] args)
     {

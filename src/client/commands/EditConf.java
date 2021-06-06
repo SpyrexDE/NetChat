@@ -7,6 +7,7 @@ import java.io.File;
 
 public class EditConf extends Command
 {
+    public static final String[] ALIASES = { "editconf", "ec" };
 
     public EditConf(String[] args)
     {

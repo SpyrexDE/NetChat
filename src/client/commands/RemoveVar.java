@@ -5,6 +5,7 @@ import utils.Props;
 
 public class RemoveVar extends Command
 {
+    public static final String[] ALIASES = { "removevar", "remvar", "rv" };
 
     public RemoveVar(String[] args)
     {

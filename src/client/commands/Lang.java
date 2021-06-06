@@ -7,6 +7,7 @@ import utils.Props;
 
 public class Lang extends Command
 {
+    public static final String[] ALIASES = { "language", "lang", "setlang" };
 
     public Lang(String[] args)
     {
