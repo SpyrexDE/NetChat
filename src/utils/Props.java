@@ -17,6 +17,8 @@ public class Props {
     public static String FALLBACK_LANG = "en";
 
     public static String configPrefix = "resources/properties/output_";
+    public static String confDir;
+    public static String confFileName = "config.properties";
     public static String confPath;
 
     private static Properties defaultConfig = new Properties();
@@ -27,10 +29,12 @@ public class Props {
     public static boolean init()
     {
         if (System.getProperty("os.name").startsWith("Windows")) {
-            confPath = System.getProperty("user.home") + "\\AppData\\Local\\NetChat\\config.properties";
+            confDir = System.getProperty("user.home") + "\\AppData\\Local\\NetChat\\";
         } else {
-            confPath = System.getProperty("user.home") + "/.netchat/config.properties";
+            confDir = System.getProperty("user.home") + "/.netchat/";
         }
+
+        confPath = confDir + confFileName;
 
         String resourceName = "resources/properties/defaultConfig.properties";
 
@@ -125,7 +129,9 @@ public class Props {
             file.getParentFile().mkdirs();
             config.store(new FileOutputStream(file), null);
             FileWriter writer = new FileWriter(file);
-            // do stuff
+            
+            //? Wird hier noch irgendwas passieren?
+            
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

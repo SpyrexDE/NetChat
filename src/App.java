@@ -42,7 +42,7 @@ public class App {
 
             //evaluation
             String pong = conn.readEncLine(privKey);
-            System.out.println("--- + ---\n" + pong + "\n --- + ---");
+            System.out.println("--- + ---\n" + pong + "\n--- + ---");
 
         } else {
             
