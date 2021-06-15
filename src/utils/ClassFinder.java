@@ -40,7 +40,7 @@ public class ClassFinder {
                     names.add(entryName);
                 }
             }
-    
+            jf.close();
         // loop through files in classpath
         }else{
         URI uri;
