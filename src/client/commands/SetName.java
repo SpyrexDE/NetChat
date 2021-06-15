@@ -5,6 +5,7 @@ import utils.Props;
 
 public class SetName extends Command
 {
+    public static final String[] ALIASES = { "setname", "nickname", "nick", "sn" };
 
     public SetName(String[] args)
     {

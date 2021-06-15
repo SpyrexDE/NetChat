@@ -7,6 +7,7 @@ import utils.Props;
 
 public class ListVars extends Command
 {
+    public static final String[] ALIASES = { "listvars", "lsv", "lv" };
 
     public ListVars(String[] args)
     {

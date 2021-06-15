@@ -4,6 +4,7 @@ import utils.Console;
 
 public class Exit extends Command
 {
+    public static final String[] ALIASES = { "exit", "ext", "e" };
 
     public Exit(String[] args)
     {

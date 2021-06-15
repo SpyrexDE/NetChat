@@ -5,6 +5,7 @@ import utils.Props;
 
 public class SetVar extends Command
 {
+    public static final String[] ALIASES = { "setvar", "sv", "set" };
 
     public SetVar(String[] args)
     {

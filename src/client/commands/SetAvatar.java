@@ -5,6 +5,7 @@ import utils.Props;
 
 public class SetAvatar extends Command
 {
+    public static final String[] ALIASES = { "setavatar", "avatar", "sa" };
 
     public SetAvatar(String[] args)
     {

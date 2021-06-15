@@ -4,6 +4,7 @@ import utils.Console;
 
 public class Help extends Command
 {
+    public static final String[] ALIASES = { "help", "h" };
 
     public Help(String[] args)
     {

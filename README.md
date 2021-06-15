@@ -1,5 +1,6 @@
 # NetChat
-*End to end encrypted, experimental messenger application for the CLI*
+*Experimental messenger application for the command line - aiming to get to a secure end to end encryption at some point in the future...*
+***This is being developed for educational purposes only and should not be seen as a secure messenger at all.***
 
 ## Usage
 
